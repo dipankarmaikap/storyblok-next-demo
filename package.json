@@ -11,9 +11,8 @@
     "proxy": "mkcert -install && mkcert localhost && local-ssl-proxy --source 3010 --target 3000 --cert localhost.pem --key localhost-key.pem"
   },
   "dependencies": {
-    "@storyblok/react": "^1.1.5",
-    "axios": "^0.27.2",
-    "next": "^12.2.5",
+    "@storyblok/react": "^1.1.4",
+    "next": "^12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
