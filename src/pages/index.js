@@ -5,7 +5,9 @@ import {
 } from "@storyblok/react";
 
 export default function Home({ story }) {
-  story = useStoryblokState(story);
+  story = useStoryblokState(story, {
+    resolveRelations: ["FeaturedPostsSection.posts"],
+  });
 
   return <StoryblokComponent blok={story.content} />;
 }
@@ -13,7 +15,8 @@ export default function Home({ story }) {
 export async function getStaticProps() {
   let slug = "home";
   let sbParams = {
-    version: "draft", // or 'published'
+    version: "draft",
+    resolve_relations: ["FeaturedPostsSection.posts"],
   };
   const storyblokApi = getStoryblokApi();
   let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
