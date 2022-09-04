@@ -1,0 +1,11 @@
+@tailwind base;
+@layer base {
+  html{
+    @apply text-gray-900
+  }
+    a {
+      @apply hover:underline hover:text-blue-700;
+    }
+  }
+@tailwind components;
+@tailwind utilities;

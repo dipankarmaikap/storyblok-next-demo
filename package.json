@@ -1,0 +1,25 @@
+{
+  "name": "next-storyblok-demo",
+  "version": "1.0.0",
+  "description": "Next.js Storyblok Demo",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "proxy": "mkcert -install && mkcert localhost && local-ssl-proxy --source 3010 --target 3000 --cert localhost.pem --key localhost-key.pem"
+  },
+  "dependencies": {
+    "@storyblok/react": "^1.1.5",
+    "axios": "^0.27.2",
+    "next": "^12.1.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.8",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8"
+  }
+}
