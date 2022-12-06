@@ -1,29 +1,27 @@
 import Link from "next/link";
-
-export default function FeaturedPostsSection() {
-  let posts = [
-    "Generating sitemap for a Storyblok + Next.js site",
-    "Headless WordPress and SEO",
-    "How to add an RSS feed to your Next.js WordPress site",
-  ];
-
+import { storyblokEditable } from "@storyblok/react";
+export default function FeaturedPostsSection({ blok }) {
+  let { title, posts } = blok;
   return (
-    <section className="my-8">
-      <p className="p-6 font-serif text-lg">Recent posts</p>
-      <div className="recent-posts">
+    <section {...storyblokEditable(blok)} className="my-8">
+      <p className="p-6 font-serif text-lg">{title}</p>
+      <div className="featured-posts">
         {posts.map((post) => (
-          <article
-            className="border-b border-gray-700 px-6 py-4 lg:p-6"
-            key={post}
-          >
-            <h2>
-              <Link href="/">
-                <a className="post text-5xl lg:text-7xl font-black">{post}</a>
-              </Link>
-            </h2>
-          </article>
+          <PostItem post={post} key={post.uuid} />
         ))}
       </div>
     </section>
+  );
+}
+
+function PostItem({ post }) {
+  return (
+    <article className="border-b border-gray-700 px-6 py-4 lg:p-6">
+      <h2>
+        <Link href={`/${post?.full_slug}` ?? "/"}>
+          <a className="post text-5xl lg:text-7xl font-black">{post?.name}</a>
+        </Link>
+      </h2>
+    </article>
   );
 }
