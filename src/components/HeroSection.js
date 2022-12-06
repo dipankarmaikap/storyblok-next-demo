@@ -16,10 +16,12 @@ export default function HeroSection({ blok }) {
         <p className="text-xl lg:text-3xl font-serif leading-relaxed my-8">
           {description}
         </p>
-        <Link href={link?.url ?? "/"}>
-          <a className="uppercase font-bold text-lg lg:text-xl underline">
+        <Link
+          href={link?.url ?? "/"}
+          className="uppercase font-bold text-lg lg:text-xl underline">
+          
             My Projects
-          </a>
+          
         </Link>
       </div>
     </section>

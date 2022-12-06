@@ -3,8 +3,8 @@ export default function Header() {
   return (
     <header className="border-b border-gray-700 p-6">
       <div className="flex flex-wrap justify-between">
-        <Link href="/">
-          <a className="text-2xl block font-bold">Portfolio</a>
+        <Link href="/" className="text-2xl block font-bold">
+          Portfolio
         </Link>
         <nav className="flex space-x-4 text-lg font-serif">
           <Link href="/">Home</Link>
