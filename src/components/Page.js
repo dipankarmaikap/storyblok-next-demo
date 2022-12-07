@@ -1,4 +1,5 @@
-import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
+import { storyblokEditable } from "@storyblok/react";
+import StoryblokComponent from "~/storyblok/StoryblokComponent";
 
 const Page = ({ blok }) => (
   <main {...storyblokEditable(blok)}>
