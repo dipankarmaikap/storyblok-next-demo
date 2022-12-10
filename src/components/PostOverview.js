@@ -5,9 +5,10 @@ const PostOverview = ({ blok, ...rest }) => {
   let title = blok?.title ?? rest?.name;
   let { created_at, published_at, posts } = rest;
   let { per_page_post } = blok;
+  let editable = blok?._editable ? storyblokEditable(blok) : {};
 
   return (
-    <main {...storyblokEditable(blok)} className="">
+    <main {...editable} className="">
       <h1>{title}</h1>
       <p>created_at: {created_at}</p>
       <p>published_at: {published_at}</p>
