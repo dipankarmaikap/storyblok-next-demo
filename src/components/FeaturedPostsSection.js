@@ -14,13 +14,14 @@ export default function FeaturedPostsSection({ blok }) {
   );
 }
 
-function PostItem({ post }) {
+export function PostItem({ post }) {
   return (
     <article className="border-b border-gray-700 px-6 py-4 lg:p-6">
       <h2>
         <Link
           href={`/${post?.full_slug}` ?? "/"}
-          className="post text-5xl lg:text-7xl font-black">
+          className="post text-5xl lg:text-7xl font-black"
+        >
           {post?.name}
         </Link>
       </h2>

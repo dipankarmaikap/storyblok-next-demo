@@ -1,13 +1,17 @@
 import Page from "~/components/Page";
+import Post from "~/components/Post";
 import HeroSection from "~/components/HeroSection";
 import FeaturedProjectsSection from "~/components/FeaturedProjectsSection";
 import FeaturedPostsSection from "~/components/FeaturedPostsSection";
+import PostOverview from "~/components/PostOverview";
 import { storyblokInit, apiPlugin } from "@storyblok/react";
 export const components = {
-  page: Page,
-  HeroSection: HeroSection,
-  FeaturedProjectsSection: FeaturedProjectsSection,
-  FeaturedPostsSection: FeaturedPostsSection,
+  Page,
+  Post,
+  HeroSection,
+  FeaturedProjectsSection,
+  FeaturedPostsSection,
+  PostOverview,
 };
 export default function initStoryblok(storyblokAcessKey) {
   storyblokInit({

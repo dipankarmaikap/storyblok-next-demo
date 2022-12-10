@@ -1,11 +1,11 @@
 import { useStoryblokState } from "@storyblok/react";
-import fetchClient from "~/lib/fetchClient";
-import { HomePageQuery } from "~/lib/graphql/HomePageQuery";
+import getStoryPageData from "~/storyblok/getStoryBlokData";
 import StoryblokComponent from "~/storyblok/StoryblokComponent";
 import { isPreviewEnv } from "~/utils/variables";
+
 const resolveRelations = ["FeaturedPostsSection.posts"];
 
-export default function about({ story }) {
+export default function Home({ story }) {
   if (isPreviewEnv) {
     story = useStoryblokState(story, {
       resolveRelations,
@@ -17,14 +17,17 @@ export default function about({ story }) {
     </div>
   );
 }
+
 export async function getStaticProps() {
-  let data =
-    (await fetchClient({
-      query: HomePageQuery,
-    })) ?? null;
+  let path = "home";
+  let data = await getStoryPageData({
+    path,
+    resolveRelations,
+  });
   return {
     props: {
-      story: data ? data?.PageItem : null,
+      story: data ? data.story : false,
+      key: data ? data.story.id : false,
     },
   };
 }
