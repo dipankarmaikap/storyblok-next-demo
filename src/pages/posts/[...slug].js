@@ -1,20 +1,25 @@
-import { useStoryblokState } from "@storyblok/react";
 import fetchClient from "~/lib/fetchClient";
 import { PostBySlug } from "~/lib/graphql/PostBySlug";
-import StoryblokComponent from "~/storyblok/StoryblokComponent";
 import { isPreviewEnv } from "~/utils/variables";
-
+import dynamic from "next/dynamic";
+const PreviewStoryblokComponent = dynamic(() =>
+  import("~/storyblok/PreviewStoryblokComponent")
+);
+const ProdStoryblokComponent = dynamic(() =>
+  import("~/storyblok/ProdStoryblokComponent")
+);
 const resolveRelations = ["Post.Categories", "Post.Tags"];
 export default function PostsPage({ story }) {
-  if (isPreviewEnv) {
-    story = useStoryblokState(story, {
-      resolveRelations,
-    });
-  }
-  let { content, ...rest } = story || {};
   return (
     <div className="article-page">
-      <StoryblokComponent blok={content} {...rest} />
+      {isPreviewEnv ? (
+        <PreviewStoryblokComponent
+          resolveRelations={resolveRelations}
+          story={story}
+        />
+      ) : (
+        <ProdStoryblokComponent story={story} />
+      )}
     </div>
   );
 }

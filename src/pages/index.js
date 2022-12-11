@@ -1,19 +1,27 @@
-import { useStoryblokState } from "@storyblok/react";
 import fetchClient from "~/lib/fetchClient";
 import { HomePageQuery } from "~/lib/graphql/HomePageQuery";
-import StoryblokComponent from "~/storyblok/StoryblokComponent";
 import { isPreviewEnv } from "~/utils/variables";
+import dynamic from "next/dynamic";
+const PreviewStoryblokComponent = dynamic(() =>
+  import("~/storyblok/PreviewStoryblokComponent")
+);
+const ProdStoryblokComponent = dynamic(() =>
+  import("~/storyblok/ProdStoryblokComponent")
+);
+
 const resolveRelations = ["FeaturedPostsSection.posts"];
 
-export default function about({ story }) {
-  if (isPreviewEnv) {
-    story = useStoryblokState(story, {
-      resolveRelations,
-    });
-  }
+export default function HomePage({ story }) {
   return (
-    <div>
-      <StoryblokComponent blok={story.content} />
+    <div className="home-page">
+      {isPreviewEnv ? (
+        <PreviewStoryblokComponent
+          resolveRelations={resolveRelations}
+          story={story}
+        />
+      ) : (
+        <ProdStoryblokComponent story={story} />
+      )}
     </div>
   );
 }
