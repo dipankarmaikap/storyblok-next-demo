@@ -4,7 +4,7 @@ import HeroSection from "~/components/HeroSection";
 import FeaturedProjectsSection from "~/components/FeaturedProjectsSection";
 import FeaturedPostsSection from "~/components/FeaturedPostsSection";
 import PostOverview from "~/components/PostOverview";
-import { storyblokInit, apiPlugin } from "@storyblok/react";
+import { storyblokInit, apiPlugin } from "@storyblok/js";
 export const components = {
   Page,
   Post,

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { storyblokEditable } from "@storyblok/react";
+import { storyblokEditable } from "@storyblok/js";
 
 import Link from "next/link";
 

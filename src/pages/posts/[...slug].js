@@ -1,7 +1,6 @@
-import fetchClient from "~/lib/fetchClient";
-import { PostBySlug } from "~/lib/graphql/PostBySlug";
 import { isPreviewEnv } from "~/utils/variables";
 import dynamic from "next/dynamic";
+import getPostDataBySlug from "~/lib/getPostDataBySlug";
 const PreviewStoryblokComponent = dynamic(() =>
   import("~/storyblok/PreviewStoryblokComponent")
 );
@@ -9,13 +8,15 @@ const ProdStoryblokComponent = dynamic(() =>
   import("~/storyblok/ProdStoryblokComponent")
 );
 const resolveRelations = ["Post.Categories", "Post.Tags"];
-export default function PostsPage({ story }) {
+export default function PostsPage({ story, url }) {
   return (
     <div className="article-page">
       {isPreviewEnv ? (
         <PreviewStoryblokComponent
           resolveRelations={resolveRelations}
-          story={story}
+          initialStory={story}
+          fetchFunction={getPostDataBySlug}
+          fetchFunctionProps={{ url }}
         />
       ) : (
         <ProdStoryblokComponent story={story} />
@@ -49,15 +50,10 @@ export async function getStaticProps({ params: { slug } }) {
       },
     };
   } else {
-    let data =
-      (await fetchClient({
-        query: PostBySlug,
-        variables: {
-          slug: `posts/${url}`,
-        },
+    let story =
+      (await getPostDataBySlug({
+        url,
       })) ?? null;
-
-    let story = data?.PostItem ?? null;
 
     if (!story) {
       return {
@@ -68,6 +64,7 @@ export async function getStaticProps({ params: { slug } }) {
     return {
       props: {
         story,
+        url,
         key: JSON.stringify(slug),
       },
     };

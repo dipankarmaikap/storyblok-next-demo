@@ -21,6 +21,13 @@ function MyApp({ Component, pageProps, privateKey }) {
           content="NextJS, Storyblok, JavaScript, Headless"
         />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify({
+              storyblokAcessKey: privateKey,
+            })}`,
+          }}
+        />
       </Head>
       {isPreviewEnv && <LoadStoryblok storyblokAcessKey={privateKey} />}
       <Header />

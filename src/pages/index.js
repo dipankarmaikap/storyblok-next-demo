@@ -1,14 +1,12 @@
-import fetchClient from "~/lib/fetchClient";
-import { HomePageQuery } from "~/lib/graphql/HomePageQuery";
 import { isPreviewEnv } from "~/utils/variables";
 import dynamic from "next/dynamic";
+import getHomePageData from "~/lib/getHomePageData";
 const PreviewStoryblokComponent = dynamic(() =>
   import("~/storyblok/PreviewStoryblokComponent")
 );
 const ProdStoryblokComponent = dynamic(() =>
   import("~/storyblok/ProdStoryblokComponent")
 );
-
 const resolveRelations = ["FeaturedPostsSection.posts"];
 
 export default function HomePage({ story }) {
@@ -17,7 +15,8 @@ export default function HomePage({ story }) {
       {isPreviewEnv ? (
         <PreviewStoryblokComponent
           resolveRelations={resolveRelations}
-          story={story}
+          initialStory={story}
+          fetchFunction={getHomePageData}
         />
       ) : (
         <ProdStoryblokComponent story={story} />
@@ -26,13 +25,10 @@ export default function HomePage({ story }) {
   );
 }
 export async function getStaticProps() {
-  let data =
-    (await fetchClient({
-      query: HomePageQuery,
-    })) ?? null;
+  let data = await getHomePageData();
   return {
     props: {
-      story: data ? data?.PageItem : null,
+      story: data ?? null,
     },
   };
 }

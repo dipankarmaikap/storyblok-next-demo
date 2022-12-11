@@ -1,4 +1,4 @@
-import { storyblokEditable } from "@storyblok/react";
+import { storyblokEditable } from "@storyblok/js";
 import Image from "next/image";
 
 export default function FeaturedProjectsSection({ blok }) {

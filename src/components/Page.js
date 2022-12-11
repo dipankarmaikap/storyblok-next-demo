@@ -1,4 +1,4 @@
-import { storyblokEditable } from "@storyblok/react";
+import { storyblokEditable } from "@storyblok/js";
 import StoryblokComponent from "~/storyblok/StoryblokComponent";
 
 const Page = ({ blok }) => {

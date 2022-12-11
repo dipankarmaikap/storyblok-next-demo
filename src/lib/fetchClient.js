@@ -5,14 +5,19 @@ import {
 } from "~/utils/variables";
 
 export default async function fetchClient({ query, variables = {} }) {
-  if (!storyblokAcessKey) {
+  let key =
+    typeof window !== "undefined"
+      ? window?.ENV?.storyblokAcessKey ?? null
+      : storyblokAcessKey;
+
+  if (!key) {
     throw new Error("Unable to acess the acessKey to fetch API");
   }
   try {
     const response = await fetch(storyblokGraphqlEndpoint, {
       method: "POST",
       headers: {
-        Token: storyblokAcessKey,
+        Token: key,
         Version: isPreviewEnv ? "draft" : "published",
       },
       body: JSON.stringify({

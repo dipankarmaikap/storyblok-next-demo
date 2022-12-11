@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { storyblokEditable } from "@storyblok/react";
+import { storyblokEditable } from "@storyblok/js";
 export default function FeaturedPostsSection({ blok }) {
   let { title, posts } = blok;
 

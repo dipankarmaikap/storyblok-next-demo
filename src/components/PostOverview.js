@@ -1,4 +1,4 @@
-import { storyblokEditable } from "@storyblok/react";
+import { storyblokEditable } from "@storyblok/js";
 import { PostItem } from "./FeaturedPostsSection";
 
 const PostOverview = ({ blok, ...rest }) => {

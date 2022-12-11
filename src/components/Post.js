@@ -1,4 +1,4 @@
-import { storyblokEditable } from "@storyblok/react";
+import { storyblokEditable } from "@storyblok/js";
 import Link from "next/link";
 const PostPage = ({ blok, ...rest }) => {
   let title = blok?.title ?? rest?.name;
