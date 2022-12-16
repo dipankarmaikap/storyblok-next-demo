@@ -1,40 +1,37 @@
-import { getStoryblokApi, useStoryblokState } from "@storyblok/react";
-import initStoryblok from "~/storyblok/initStoryblok";
-import StoryblokComponent from "~/storyblok/StoryblokComponent";
-import { isPreviewEnv, storyblokAcessKey } from "~/utils/variables";
-
+import { isPreviewEnv } from "~/utils/variables";
+import dynamic from "next/dynamic";
+import getHomePageData from "~/lib/getHomePageData";
+const PreviewStoryblokComponent = dynamic(() =>
+  import("~/storyblok/PreviewStoryblokComponent")
+);
+const ProdStoryblokComponent = dynamic(() =>
+  import("~/storyblok/ProdStoryblokComponent")
+);
 const resolveRelations = ["FeaturedPostsSection.posts"];
 
 export default function Home({ story }) {
-  if (isPreviewEnv) {
-    // console.log("running useStoryblokState on client");
-    story = useStoryblokState(story, {
-      resolveRelations,
-    });
-  }
   return (
     <div>
-      <StoryblokComponent blok={story.content} />
-      {/* <StoryblokComponent blok={story.content} /> */}
+      {isPreviewEnv ? (
+        <PreviewStoryblokComponent
+          resolveRelations={resolveRelations}
+          initialStory={story}
+          fetchFunction={getHomePageData}
+          fetchFunctionProps={{ resolveRelations }}
+        />
+      ) : (
+        <ProdStoryblokComponent story={story} />
+      )}
     </div>
   );
 }
 
 export async function getStaticProps() {
-  initStoryblok(storyblokAcessKey);
-
-  let slug = "home";
-  let sbParams = {
-    version: isPreviewEnv ? "draft" : "published", // or 'published'
-    resolve_relations: resolveRelations,
-  };
-  const storyblokApi = getStoryblokApi();
-  let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
+  let story = await getHomePageData({ resolveRelations });
   return {
     props: {
-      story: data ? data.story : false,
-      key: data ? data.story.id : false,
+      story: story ? story : false,
+      key: story ? story.id : false,
     },
-    revalidate: 3600,
   };
 }

@@ -2,8 +2,9 @@ import Link from "next/link";
 import { storyblokEditable } from "@storyblok/react";
 export default function FeaturedPostsSection({ blok }) {
   let { title, posts } = blok;
+  let editable = blok?._editable ? storyblokEditable(blok) : {};
   return (
-    <section {...storyblokEditable(blok)} className="my-8">
+    <section {...editable} className="my-8">
       <p className="p-6 font-serif text-lg">{title}</p>
       <div className="featured-posts">
         {posts.map((post) => (
@@ -20,7 +21,8 @@ function PostItem({ post }) {
       <h2>
         <Link
           href={`/${post?.full_slug}` ?? "/"}
-          className="post text-5xl lg:text-7xl font-black">
+          className="post text-5xl lg:text-7xl font-black"
+        >
           {post?.name}
         </Link>
       </h2>
