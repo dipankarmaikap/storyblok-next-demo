@@ -1,7 +1,7 @@
 import Link from "next/link";
 export default function Header() {
   return (
-    <header className="border-b border-gray-700 p-6">
+    <header className="border-b border-gray-700  px-4 py-6">
       <div className="flex flex-wrap justify-between">
         <Link href="/" className="text-2xl block font-bold">
           Portfolio

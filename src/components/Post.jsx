@@ -1,4 +1,5 @@
-import { storyblokEditable, renderRichText } from "@storyblok/js";
+import { storyblokEditable } from "@storyblok/js";
+import RichTextResolver from "storyblok-js-client/richTextResolver";
 import Link from "next/link";
 import Author from "./Author";
 const PostPage = ({ blok, ...rest }) => {
@@ -6,7 +7,8 @@ const PostPage = ({ blok, ...rest }) => {
   let { published_at } = rest;
   let { content, description, Categories, Tags } = blok;
   let editable = blok?._editable ? storyblokEditable(blok) : {};
-  let body = renderRichText(content);
+  const resolver = new RichTextResolver();
+  let body = resolver.render(content);
   return (
     <main {...editable} className="max-w-[800px] mx-auto p-4">
       <article className="prose prose-lg sm:prose-xl max-w-none prose-h1:my-0 sm:prose-h1:my-0">
@@ -27,22 +29,24 @@ const PostPage = ({ blok, ...rest }) => {
           className="border-b mt-12"
           dangerouslySetInnerHTML={{ __html: body }}
         />
-        <div className="tags border-b flex items-center space-x-2 not-prose py-4">
-          <p className="font-medium">Posted in tags: </p>
-          <div className="flex space-x-1">
-            {Tags?.map((tag, index) => (
-              <span key={tag?.id}>
-                <Link
-                  className="no-underline text-base font-normal"
-                  href={`/${tag?.full_slug}`}
-                >
-                  {tag?.name}
-                </Link>
-                {index < Tags?.length - 1 && <span>,</span>}
-              </span>
-            ))}
+        {Tags?.length ? (
+          <div className="tags border-b flex items-center space-x-2 not-prose py-4">
+            <p className="font-medium">Posted in tags: </p>
+            <div className="flex space-x-1">
+              {Tags?.map((tag, index) => (
+                <span key={tag?.id}>
+                  <Link
+                    className="no-underline text-base font-normal"
+                    href={`/${tag?.full_slug}`}
+                  >
+                    {tag?.name}
+                  </Link>
+                  {index < Tags?.length - 1 && <span>,</span>}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : null}
       </article>
     </main>
   );

@@ -15,7 +15,7 @@ export default function FeaturedPostsSection({ blok }) {
   );
 }
 
-function PostItem({ post }) {
+export function PostItem({ post }) {
   return (
     <article className="border-b border-gray-700 px-6 py-4 lg:p-6">
       <h2>

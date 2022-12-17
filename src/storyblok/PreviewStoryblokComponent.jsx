@@ -5,6 +5,7 @@ export default function PreviewStoryblokComponent({
   resolveRelations,
   fetchFunction,
   fetchFunctionProps,
+  initialStory,
 }) {
   const story = useStoryblok({
     bridgeOptions: { resolveRelations },
@@ -12,7 +13,9 @@ export default function PreviewStoryblokComponent({
     fetchFunctionProps,
   });
 
-  let { content, ...rest } = story || {};
+  let mergedPosts = { ...initialStory, ...story };
+
+  let { content, ...rest } = mergedPosts || {};
 
   if (!content) {
     return (
