@@ -8,8 +8,8 @@ export default function Header() {
         </Link>
         <nav className="flex space-x-4 text-lg font-serif">
           <Link href="/">Home</Link>
-          <Link href="/blogs">Blogs</Link>
-          <Link href="/projects">Projects</Link>
+          <Link href="/posts">Posts</Link>
+          <Link href="/contact">Contact</Link>
         </nav>
       </div>
     </header>

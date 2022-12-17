@@ -19,18 +19,11 @@ export default function FeaturedProjectsSection({ blok }) {
 
 function ProjectItem({ project }) {
   let editable = project?._editable ? storyblokEditable(project) : {};
-
   let src = project?.featured_image?.filename + "/m/400x0";
-
-  const myLoader = ({ src, width, quality }) => {
-    return `${project?.featured_image?.filename}/m/50x0/filters:blur(10)`;
-  };
-
   return (
     <article {...editable} className="project-item">
       <Image
         className="w-full"
-        loader={myLoader}
         src={src}
         alt={project?.featured_image?.alt}
         width={500}
@@ -44,3 +37,15 @@ function ProjectItem({ project }) {
     </article>
   );
 }
+const getBase64FromUrl = async (url) => {
+  const data = await fetch(url);
+  const blob = await data.blob();
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = () => {
+      const base64data = reader.result;
+      resolve(base64data);
+    };
+  });
+};
