@@ -1,6 +1,6 @@
 import initStoryblok from "~/storyblok/initStoryblok";
 import { isPreviewEnv } from "~/utils/variables";
-export default async function getHomePageData({ resolveRelations }) {
+export default async function getPageDataBySlug({ resolveRelations }) {
   let storyblokApi = initStoryblok();
   let slug = "home";
   let sbParams = {

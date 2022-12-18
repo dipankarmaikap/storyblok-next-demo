@@ -1,6 +1,6 @@
 import { isPreviewEnv } from "~/utils/variables";
 import dynamic from "next/dynamic";
-import getHomePageData from "~/lib/getHomePageData";
+import getPageDataBySlug from "~/lib/getPageDataBySlug";
 const PreviewStoryblokComponent = dynamic(() =>
   import("~/storyblok/PreviewStoryblokComponent")
 );
@@ -16,7 +16,7 @@ export default function Home({ story }) {
         <PreviewStoryblokComponent
           resolveRelations={resolveRelations}
           initialStory={story}
-          fetchFunction={getHomePageData}
+          fetchFunction={getPageDataBySlug}
           fetchFunctionProps={{ resolveRelations }}
         />
       ) : (
@@ -27,7 +27,7 @@ export default function Home({ story }) {
 }
 
 export async function getStaticProps() {
-  let story = await getHomePageData({ resolveRelations });
+  let story = await getPageDataBySlug({ resolveRelations });
   return {
     props: {
       story: story ? story : false,
