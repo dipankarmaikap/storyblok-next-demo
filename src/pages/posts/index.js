@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import getPostsArchive from "~/lib/getPostsArchive";
 import PreviewStoryblokComponent from "~/storyblok/PreviewStoryblokComponent";
 import ProdStoryblokComponent from "~/storyblok/ProdStoryblokComponent";
@@ -7,7 +8,7 @@ const resolveRelations = [];
 
 export default function PostArchive({ story }) {
   return (
-    <div>
+    <Fragment>
       {isPreviewEnv ? (
         <PreviewStoryblokComponent
           resolveRelations={resolveRelations}
@@ -18,7 +19,7 @@ export default function PostArchive({ story }) {
       ) : (
         <ProdStoryblokComponent story={story} />
       )}
-    </div>
+    </Fragment>
   );
 }
 

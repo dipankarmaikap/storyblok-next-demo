@@ -1,5 +1,7 @@
 import Page from "~/components/Page";
 import Post from "~/components/Post";
+import Form from "~/components/form";
+import Input from "~/components/form/Input";
 import PostOverview from "~/components/PostOverview";
 import HeroSection from "~/components/HeroSection";
 import FeaturedProjectsSection from "~/components/FeaturedProjectsSection";
@@ -8,6 +10,8 @@ import { storyblokInit, apiPlugin } from "@storyblok/js";
 import { isPreviewEnv, storyblokAcessKey } from "~/utils/variables";
 export const components = {
   Post,
+  Form,
+  input: Input,
   PostOverview,
   Page,
   HeroSection,

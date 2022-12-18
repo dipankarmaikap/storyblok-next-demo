@@ -10,7 +10,7 @@ const ProdStoryblokComponent = dynamic(() =>
 );
 const resolveRelations = ["FeaturedPostsSection.posts"];
 
-export default function Home({ story }) {
+export default function CatchAllPage({ story, slug }) {
   return (
     <Fragment>
       {isPreviewEnv ? (
@@ -18,7 +18,7 @@ export default function Home({ story }) {
           resolveRelations={resolveRelations}
           initialStory={story}
           fetchFunction={getPageDataBySlug}
-          fetchFunctionProps={{ resolveRelations }}
+          fetchFunctionProps={{ resolveRelations, slug }}
         />
       ) : (
         <ProdStoryblokComponent story={story} />
@@ -27,12 +27,25 @@ export default function Home({ story }) {
   );
 }
 
-export async function getStaticProps() {
-  let story = await getPageDataBySlug({ resolveRelations });
+export async function getStaticProps({ params: { slug } }) {
+  let story = await getPageDataBySlug({ slug, resolveRelations });
+  if (!story) {
+    return {
+      notFound: true,
+      revalidate: 60,
+    };
+  }
   return {
     props: {
       story: story ? story : false,
+      slug,
       key: story ? story.id : false,
     },
+  };
+}
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
   };
 }

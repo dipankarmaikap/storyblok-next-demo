@@ -21,9 +21,5 @@ export default function StoryblokComponent({ blok, ...restProps }) {
     );
   }
 
-  return (
-    <div>
-      <ReactComp blok={blok} {...restProps} />
-    </div>
-  );
+  return <ReactComp blok={blok} {...restProps} />;
 }

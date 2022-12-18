@@ -6,6 +6,10 @@
     a {
       @apply hover:underline hover:text-blue-700;
     }
+
+    #__next{
+      @apply flex flex-col min-h-screen
+    }
   }
 @tailwind components;
 @tailwind utilities;

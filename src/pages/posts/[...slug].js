@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import getPostDataBySlug from "~/lib/getPostDataBySlug";
 import getPostsArchive from "~/lib/getPostsArchive";
 import PreviewStoryblokComponent from "~/storyblok/PreviewStoryblokComponent";
@@ -12,7 +12,7 @@ export default function PostsPage({ story, paginated, url, pageNo }) {
   let fetchFunctionProps = paginated ? { pageNo } : { url, resolveRelations };
 
   return (
-    <div className="article-page">
+    <Fragment>
       {isPreviewEnv ? (
         <PreviewStoryblokComponent
           resolveRelations={resolveRelations}
@@ -23,7 +23,7 @@ export default function PostsPage({ story, paginated, url, pageNo }) {
       ) : (
         <ProdStoryblokComponent story={story} />
       )}
-    </div>
+    </Fragment>
   );
 }
 export async function getStaticProps({ params: { slug } }) {
